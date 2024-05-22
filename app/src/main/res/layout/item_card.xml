@@ -5,22 +5,52 @@
     android:layout_margin="8dp"
     android:orientation="vertical"
     android:background="@drawable/card_background">
-
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Front"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:padding="16dp" />
+    <TextView
+        android:id="@+id/textViewFront"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Front"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:padding="16dp" />
+    <TextView
+        android:id="@+id/textViewBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Front"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:padding="16dp" />
+    <TextView
+        android:id="@+id/textViewDeck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Front"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:padding="16dp" />
 <TextView
-android:id="@+id/textViewFront"
+android:id="@+id/textViewTag"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:text="Front"
 android:textAppearance="?android:attr/textAppearanceMedium"
 android:gravity="center"
     android:padding="16dp" />
-
-<TextView
-android:id="@+id/textViewBack"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="Back"
-android:textAppearance="?android:attr/textAppearanceMedium"
-android:gravity="center"
-    android:padding="16dp" />
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp" />
     </LinearLayout>

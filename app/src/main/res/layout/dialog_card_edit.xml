@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:nestedScrollingEnabled="true">
+
+    <!-- EditText for entering the front of the card -->
+    <EditText
+        android:id="@+id/editTextFront"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Enter front of the card"
+        android:minHeight="48dp" />
+
+    <!-- EditText for entering the back of the card -->
+    <EditText
+        android:id="@+id/editTextBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Enter back of the card"
+        android:minHeight="48dp" />
+    <!-- Tag input field -->
+    <EditText
+        android:id="@+id/editTextTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Tag"
+        android:minHeight="48dp" />
+
+    <!-- Name input field -->
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Name"
+        android:minHeight="48dp" />
+
+    <!-- Deck input field -->
+    <EditText
+        android:id="@+id/editTextDeck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Deck"
+        android:minHeight="48dp" />
+</LinearLayout>

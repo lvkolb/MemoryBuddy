@@ -1,41 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:nestedScrollingEnabled="true">
 
-    <!-- EditText for entering the front of the card -->
-    <EditText
-        android:id="@+id/editTextFront"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Enter front of the card"
-        android:minHeight="48dp" />
-
-    <!-- EditText for entering the back of the card -->
-    <EditText
-        android:id="@+id/editTextBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Enter back of the card"
-        android:minHeight="48dp" />
-
-    <!-- Button for adding the card -->
-    <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Card"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
-
-    <!-- RecyclerView to display the list of cards -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:nestedScrollingEnabled="true" />
+    <!-- Button for adding the card -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="16dp"
+        app:icon="@drawable/ic_add_24"
+        android:text="Add Card"
+        app:backgroundTint="#C4ADF1" />
+
 
 </LinearLayout>

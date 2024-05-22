@@ -15,6 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 import de.thnuernberg.bme.memorybuddy.R;
@@ -24,80 +27,105 @@ public class CardFragment extends Fragment {
 
     private FragmentCardBinding binding;
     private CardViewModel cardViewModel;
+    private CardAdapter adapter;
+    private List<Card> cards;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentCardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final EditText editTextFront = binding.editTextFront;
-        final EditText editTextBack = binding.editTextBack;
-        Button buttonAdd = binding.buttonAdd;
+    private void showCardEditDialog() {
+        CardEditDialog dialog = new CardEditDialog(adapter, cards);
+        dialog.show(getChildFragmentManager(), "CardEditDialog");
+    }
 
-        cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+    public void onCardSaved(String tag, String name, String deck, String frontText, String backText) {
+        Card newCard = new Card(tag, name, deck, frontText, backText);
+        adapter.addCard(newCard);
+    }
 
-        buttonAdd.setOnClickListener(view -> {
-            String frontText = editTextFront.getText().toString().trim();
-            String backText = editTextBack.getText().toString().trim();
+    private void addCardToList(Card card) {
+        cards.add(card);
+    }
 
-            if (!frontText.isEmpty() && !backText.isEmpty()) {
-                Card newCard = new Card(frontText, backText);
-                cardViewModel.addCard(newCard);
-                editTextFront.setText("");
-                editTextBack.setText("");
-                Toast.makeText(getContext(), "Card added successfully", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Please fill in both fields", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_card, container, false);
 
-        RecyclerView recyclerView = binding.recyclerViewCards;
+        cards = new ArrayList<>();
+        adapter = new CardAdapter(cards);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCards);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        CardAdapter adapter = new CardAdapter();
         recyclerView.setAdapter(adapter);
 
-        cardViewModel.getCards().observe(getViewLifecycleOwner(), adapter::setCards);
+        ExtendedFloatingActionButton buttonAdd = view.findViewById(R.id.buttonAdd);
+        buttonAdd.setOnClickListener(v -> showCardEditDialog());
 
-        return root;
+        return view;
     }
 
     // Adapter for RecyclerView
-    private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
+    public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
-        private List<Card> cards = new ArrayList<>();
+        private List<Card> cardList;
 
-        public void setCards(List<Card> cards) {
-            this.cards = cards;
-            notifyDataSetChanged();
+        public CardAdapter(List<Card> cardList) {
+            this.cardList = cardList;
         }
 
         @NonNull
         @Override
         public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
-            return new CardViewHolder(itemView);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
+            return new CardViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-            Card card = cards.get(position);
+            Card card = cardList.get(position);
+            holder.textViewName.setText(card.getName());
             holder.textViewFront.setText(card.getFront());
             holder.textViewBack.setText(card.getBack());
+            holder.textViewDeck.setText(card.getDeck());
+            holder.textViewTag.setText(card.getTag());
+            holder.btnDelete.setOnClickListener(view -> {
+                int deletedPosition = holder.getAdapterPosition();
+                removeCard(deletedPosition);
+                // Perform additional logic to delete the card from the database or storage
+            });
+            // Bind other card data to views if needed
         }
 
         @Override
         public int getItemCount() {
-            return cards.size();
+            return cardList.size();
         }
 
-        static class CardViewHolder extends RecyclerView.ViewHolder {
+        public void addCard(Card card) {
+            cardList.add(card);
+            notifyItemInserted(cardList.size() - 1);
+        }
+        public void removeCard(int position) {
+            cardList.remove(position);
+            notifyItemRemoved(position);
+        }
+
+        class CardViewHolder extends RecyclerView.ViewHolder {
+            TextView textViewName;
             TextView textViewFront;
             TextView textViewBack;
+            TextView textViewTag;
+            TextView textViewDeck;
+            Button btnDelete;
+            // Other views if needed
 
             public CardViewHolder(@NonNull View itemView) {
                 super(itemView);
+                textViewName = itemView.findViewById(R.id.textViewName);
                 textViewFront = itemView.findViewById(R.id.textViewFront);
                 textViewBack = itemView.findViewById(R.id.textViewBack);
+                textViewDeck = itemView.findViewById(R.id.textViewDeck);
+                textViewTag = itemView.findViewById(R.id.textViewTag);
+                btnDelete = itemView.findViewById(R.id.btnDelete);
+                // Initialize other views if needed
             }
         }
     }
