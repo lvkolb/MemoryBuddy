@@ -4,16 +4,27 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CardViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private MutableLiveData<List<Card>> mCards;
 
     public CardViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is card fragment");
+        mCards = new MutableLiveData<>();
+        mCards.setValue(new ArrayList<>());
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Card>> getCards() {
+        return mCards;
+    }
+
+    public void addCard(Card card) {
+        List<Card> currentCards = mCards.getValue();
+        if (currentCards != null) {
+            currentCards.add(card);
+            mCards.setValue(currentCards);
+        }
     }
 }
