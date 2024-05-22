@@ -1,4 +1,4 @@
-package de.thnuernberg.bme.memorybuddy.ui.dashboard;
+package de.thnuernberg.bme.memorybuddy.ui.deck;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import de.thnuernberg.bme.memorybuddy.databinding.FragmentDashboardBinding;
+import de.thnuernberg.bme.memorybuddy.databinding.FragmentDeckBinding;
 
-public class DashboardFragment extends Fragment {
+public class DeckFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentDeckBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        DeckViewModel deckViewModel =
+                new ViewModelProvider(this).get(DeckViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentDeckBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textDeck;
+        deckViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
