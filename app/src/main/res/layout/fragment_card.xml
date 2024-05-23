@@ -35,8 +35,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginTop="16dp"
         app:icon="@drawable/ic_add_24"
-        android:text="@string/button_add_card"
-        app:backgroundTint="#C4ADF1" />
+        android:text="@string/button_add_card" />
 
 
 </LinearLayout>
