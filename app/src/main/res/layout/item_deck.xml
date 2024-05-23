@@ -18,50 +18,14 @@
             android:textAllCaps="true"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textStyle="bold" />
-
         <TextView
-            android:id="@+id/textViewFront"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:textAlignment="center"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
-<com.google.android.material.divider.MaterialDivider
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp"/>
-
-        <TextView
-            android:id="@+id/textViewBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:textAlignment="center"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
-        <LinearLayout
+            android:id="@+id/textViewCardCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:textAllCaps="true"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewDeck"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary" />
-
-            <TextView
-                android:id="@+id/textViewTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

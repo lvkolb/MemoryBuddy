@@ -7,46 +7,77 @@
     android:nestedScrollingEnabled="true">
 
     <!-- EditText for entering the front of the card -->
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextFront"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Enter front of the card"
-        android:minHeight="48dp" />
-
-    <!-- EditText for entering the back of the card -->
-    <EditText
+        android:hint="@string/enter_front_of_card"
+        android:layout_margin="20dp"
+        android:minHeight="48dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Enter back of the card"
-        android:minHeight="48dp" />
+        android:hint="@string/enter_back_of_card"
+        android:layout_margin="20dp"
+        android:minHeight="48dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- EditText for entering the back of the card -->
+
     <!-- Tag input field -->
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Tag"
-        android:minHeight="48dp" />
+        android:hint="@string/enter_tag_of_card"
+        android:layout_margin="20dp"
+        android:minHeight="48dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Name input field -->
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Name"
-        android:minHeight="48dp" />
+        android:hint="@string/enter_name_of_card"
+        android:layout_margin="20dp"
+        android:minHeight="48dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Deck input field -->
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextDeck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Deck"
-        android:minHeight="48dp" />
+        android:hint="@string/enter_deck_of_card"
+        android:layout_margin="20dp"
+        android:minHeight="48dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

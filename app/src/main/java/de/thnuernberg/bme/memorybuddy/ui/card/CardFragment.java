@@ -1,15 +1,17 @@
 package de.thnuernberg.bme.memorybuddy.ui.card;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -32,8 +34,8 @@ public class CardFragment extends Fragment {
         dialog.show(getChildFragmentManager(), "CardEditDialog");
     }
 
-    public void onCardSaved(String tag, String name, String deck, String frontText, String backText) {
-        Card newCard = new Card(tag, name, deck, frontText, backText);
+    public void onCardSaved(String name, String frontText, String backText, String deck, String tag) {
+        Card newCard = new Card(name,frontText,backText,deck,tag);
         adapter.addCard(newCard);
     }
 
@@ -49,8 +51,9 @@ public class CardFragment extends Fragment {
         adapter = new CardAdapter(cards);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCards);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(adapter);
+        onCardSaved("dummy card","How much fun is android?","10/10","AndroidFunfacts","fun");
 
         ExtendedFloatingActionButton buttonAdd = view.findViewById(R.id.buttonAdd);
         buttonAdd.setOnClickListener(v -> showCardEditDialog());
@@ -59,9 +62,10 @@ public class CardFragment extends Fragment {
     }
 
     // Adapter for RecyclerView
-    public static class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
+    public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
         private List<Card> cardList;
+        private int cardCount = 0;
 
         public CardAdapter(List<Card> cardList) {
             this.cardList = cardList;
@@ -80,8 +84,8 @@ public class CardFragment extends Fragment {
             holder.textViewName.setText(card.getName());
             holder.textViewFront.setText(card.getFront());
             holder.textViewBack.setText(card.getBack());
-            holder.textViewDeck.setText(card.getDeck());
-            holder.textViewTag.setText(card.getTag());
+            holder.textViewDeck.setText("Deck: "+card.getDeck());
+            holder.textViewTag.setText("Tag: #"+card.getTag());
             holder.btnDelete.setOnClickListener(view -> {
                 int deletedPosition = holder.getAdapterPosition();
                 removeCard(deletedPosition);
@@ -94,8 +98,15 @@ public class CardFragment extends Fragment {
         public int getItemCount() {
             return cardList.size();
         }
+        public int getCardCount() {
+            return cardCount;
+        }
 
         public void addCard(Card card) {
+            cardCount++;
+            Resources res = getResources();
+            String numberOfCards = String.format(res.getString(R.string.cards_update), cardCount);
+            Toast.makeText(getContext(),numberOfCards, Toast.LENGTH_LONG).show();
             cardList.add(card);
             notifyItemInserted(cardList.size() - 1);
         }
@@ -104,7 +115,7 @@ public class CardFragment extends Fragment {
             notifyItemRemoved(position);
         }
 
-        static class CardViewHolder extends RecyclerView.ViewHolder {
+         class CardViewHolder extends RecyclerView.ViewHolder {
             TextView textViewName;
             TextView textViewFront;
             TextView textViewBack;
@@ -124,5 +135,9 @@ public class CardFragment extends Fragment {
                 // Initialize other views if needed
             }
         }
+    }
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

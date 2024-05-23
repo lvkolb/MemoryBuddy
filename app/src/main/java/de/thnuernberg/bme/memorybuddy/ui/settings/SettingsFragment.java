@@ -22,8 +22,7 @@ public class SettingsFragment extends Fragment {
         binding = de.thnuernberg.bme.memorybuddy.databinding.FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSettings;
-        settingViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 

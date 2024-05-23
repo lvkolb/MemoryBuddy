@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.card.CardFragment">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:nestedScrollingEnabled="true">
-
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/text_title_cards"
         android:layout_width="match_parent"
@@ -21,21 +30,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Id_const_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCards"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:nestedScrollingEnabled="true" />
-    <!-- Button for adding the card -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginTop="16dp"
-        app:icon="@drawable/ic_add_24"
-        android:text="@string/button_add_card" />
-
-
+        android:layout_height="match_parent"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="@+id/Id_const_layout"
+        app:layout_constraintEnd_toEndOf="@+id/Id_const_layout"
+        app:layout_constraintHeight_max="1000dp"
+        app:layout_constraintHeight_min="500dp"
+        app:layout_constraintStart_toStartOf="@+id/Id_const_layout"
+        app:layout_constraintTop_toTopOf="@+id/Id_const_layout"
+        android:layout_marginTop="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="14dp"
+            android:text="@string/button_add_card"
+            app:icon="@drawable/ic_add_24" />
+
+    </RelativeLayout>
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

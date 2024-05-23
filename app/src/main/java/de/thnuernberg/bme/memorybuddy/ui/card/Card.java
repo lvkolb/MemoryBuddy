@@ -10,7 +10,7 @@ public class Card {
     private final int reviewCount;
     private final int rating;
 
-    public Card(String front, String back, String name, String deck, String tag) {
+    public Card(String name, String front, String back,String deck, String tag) {
         this.front = front;
         this.back = back;
         this.name = name;

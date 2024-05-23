@@ -26,8 +26,6 @@ public class StatisticFragment extends Fragment {
         binding = de.thnuernberg.bme.memorybuddy.databinding.FragmentStatisticBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textStatistic;
-        statisticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

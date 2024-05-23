@@ -4,16 +4,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.thnuernberg.bme.memorybuddy.ui.card.Card;
+
 public class DeckViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private MutableLiveData<List<Deck>> mDecks;
 
     public DeckViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is deck fragment");
+        mDecks = new MutableLiveData<>();
+        mDecks.setValue(new ArrayList<>());
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Deck>> getDecks() {
+        return mDecks;
+    }
+
+    public void addDeck(Deck deck) {
+        List<Deck> currentDecks = mDecks.getValue();
+        if (currentDecks != null) {
+            currentDecks.add(deck);
+            mDecks.setValue(currentDecks);
+        }
     }
 }
