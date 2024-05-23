@@ -15,7 +15,6 @@ import java.util.List;
 import de.thnuernberg.bme.memorybuddy.R;
 
 public class CardEditDialog extends DialogFragment {
-
     private CardFragment.CardAdapter adapter;
     private List<Card> cards;
 
@@ -48,6 +47,7 @@ public class CardEditDialog extends DialogFragment {
                     String backText = editTextBack.getText().toString();
 
                     // Pass values back to the fragment
+                    assert getParentFragment() != null;
                     ((CardFragment) getParentFragment()).onCardSaved(tag, name, deck, frontText, backText);
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());

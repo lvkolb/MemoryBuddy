@@ -1,14 +1,14 @@
 package de.thnuernberg.bme.memorybuddy.ui.card;
 
 public class Card {
-    private String front;
-    private String back;
-    private String name;
-    private String deck;
-    private String tag;
+    private final String front;
+    private final String back;
+    private final String name;
+    private final String deck;
+    private final String tag;
 
-    private int reviewCount;
-    private int rating;
+    private final int reviewCount;
+    private final int rating;
 
     public Card(String front, String back, String name, String deck, String tag) {
         this.front = front;

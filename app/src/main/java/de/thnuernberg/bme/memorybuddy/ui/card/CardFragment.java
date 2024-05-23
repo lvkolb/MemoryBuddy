@@ -5,18 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +59,7 @@ public class CardFragment extends Fragment {
     }
 
     // Adapter for RecyclerView
-    public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
+    public static class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
         private List<Card> cardList;
 
@@ -108,7 +104,7 @@ public class CardFragment extends Fragment {
             notifyItemRemoved(position);
         }
 
-        class CardViewHolder extends RecyclerView.ViewHolder {
+        static class CardViewHolder extends RecyclerView.ViewHolder {
             TextView textViewName;
             TextView textViewFront;
             TextView textViewBack;
