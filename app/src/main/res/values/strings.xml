@@ -36,4 +36,6 @@
     <string name="statitic_title1">Statistic 1</string>
     <string name="statistic_title2">Statistic 2</string>
     <string name="statistic_title3">Statistic 3</string>
+    <string name="deck">"Deck: "</string>
+    <string name="tag">Tag: #</string>
 </resources>

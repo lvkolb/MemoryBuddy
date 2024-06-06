@@ -56,14 +56,14 @@ public class DeckFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDecks);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(adapter);
-        cards = new ArrayList<>();
-        cards.add(new Card("Card 1", "Front 1", "Back 1", "Deck 1", "Tag 1"));
-        cards.add(new Card("Card 2", "Front 2", "Back 2", "Deck 2", "Tag 2"));
-        cards.add(new Card("Card 3", "Front 3", "Back 3", "Deck 3", "Tag 3"));
-        for (int i = 0; i < cards.size(); i++) {
-            tempCount++;
-        }
-        onDeckSaved("dummydeck",cards,tempCount);
+       // cards = new ArrayList<>();
+       // cards.add(new Card("Card 1", "Front 1", "Back 1", "Deck 1", "Tag 1"));
+       // cards.add(new Card("Card 2", "Front 2", "Back 2", "Deck 2", "Tag 2"));
+      //  cards.add(new Card("Card 3", "Front 3", "Back 3", "Deck 3", "Tag 3"));
+      //  for (int i = 0; i < cards.size(); i++) {
+      //      tempCount++;
+      //  }
+       // onDeckSaved("dummydeck",cards,tempCount);
 
         ExtendedFloatingActionButton buttonAdd = view.findViewById(R.id.buttonAdd);
         buttonAdd.setOnClickListener(v -> showDeckEditDialog());
