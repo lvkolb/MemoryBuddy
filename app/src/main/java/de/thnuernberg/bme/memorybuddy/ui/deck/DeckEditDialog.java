@@ -15,8 +15,6 @@ import java.util.List;
 
 import de.thnuernberg.bme.memorybuddy.R;
 import de.thnuernberg.bme.memorybuddy.ui.card.Card;
-import de.thnuernberg.bme.memorybuddy.ui.deck.Deck;
-import de.thnuernberg.bme.memorybuddy.ui.deck.DeckFragment;
 
 public class DeckEditDialog extends DialogFragment {
     private DeckFragment.DeckAdapter adapter;
@@ -36,7 +34,7 @@ public class DeckEditDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_deck_edit, null);
 
 
-        TextInputLayout editTextName = view.findViewById(R.id.editTextName);
+        TextInputLayout editTextName = view.findViewById(R.id.editTextCategory);
 
         builder.setView(view)
                 .setTitle("Add Deck")

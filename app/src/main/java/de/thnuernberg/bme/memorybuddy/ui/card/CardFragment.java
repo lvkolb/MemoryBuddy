@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,19 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import de.thnuernberg.bme.memorybuddy.ui.FragmentContainer;
 import de.thnuernberg.bme.memorybuddy.ui.card.CardFragment.CardAdapter.CardViewHolder;
 
 import de.thnuernberg.bme.memorybuddy.R;
 import de.thnuernberg.bme.memorybuddy.database.CardDatabase;
 import de.thnuernberg.bme.memorybuddy.ui.SharedViewModel;
 
-public class CardFragment extends Fragment {
+public class CardFragment extends Fragment implements FragmentContainer {
 
     private CardAdapter adapter;
     private List<Card> cards;
     private CardDatabase cardDatabase;
     private RecyclerView recyclerView;
-
     private SharedViewModel sharedViewModel;
 
 
@@ -46,11 +48,10 @@ public class CardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_card, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerViewCards);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         cardDatabase = sharedViewModel.getCardDatabase();
-        //sharedViewModel.getCards().observe(getViewLifecycleOwner(), cards -> adapter.updateCards(cards));
 
         adapter = new CardAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -74,13 +75,29 @@ public class CardFragment extends Fragment {
     }
 
     private void showCardEditDialog() {
-        CardEditDialog dialog = new CardEditDialog(adapter, cards);
+        CardEditDialog dialog = new CardEditDialog(cards);
         dialog.show(getChildFragmentManager(), "CardEditDialog");
     }
 
-    public void onCardSaved(String name, String frontText, String backText, String deck, String tag) {
-        Card newCard = new Card(name, frontText, backText, deck, tag);
+    public void onCardSaved(String category, String frontText, String backText, String deck) {
+        Card newCard = new Card(category, frontText, backText, deck, 1,1,0);
         adapter.addCard(newCard);
+    }
+    @Override
+    public void onCardUpdated(int id,String category, String frontText, String backText, String deck, int rating, int recommendation , int reviewCount) {
+        int newReviewCount =reviewCount+1;
+        int newRecommendation =recommendation+1;
+        Card updatedCard = new Card(category, frontText, backText, deck, rating,newRecommendation,newReviewCount);
+        updatedCard.setID(id);
+        adapter.updateCard(updatedCard);
+    }
+    @Override
+    public void onCardPlayed(int id,String category, String frontText, String backText, String deck, int rating, int recommendation , int reviewCount) {
+        int newReviewCount =reviewCount+1;
+        int newRecommendation =recommendation+1;
+        Card updatedCard = new Card(category, frontText, backText, deck, rating,newRecommendation,newReviewCount);
+        updatedCard.setID(id);
+        adapter.updateCard(updatedCard);
     }
 
     public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
@@ -93,20 +110,18 @@ public class CardFragment extends Fragment {
         }
 
         class CardViewHolder extends RecyclerView.ViewHolder{
+
+            LinearLayout cardLayout;
             TextView textViewName;
             TextView textViewFront;
-            TextView textViewBack;
-            TextView textViewTag;
-            TextView textViewDeck;
             Button btnDelete;
+            Button btnDetail;
 
             private CardViewHolder(View itemView) {
                 super(itemView);
-                textViewName = itemView.findViewById(R.id.textViewName);
+                cardLayout = itemView.findViewById(R.id.cardLayout);
                 textViewFront = itemView.findViewById(R.id.textViewFront);
-                textViewBack = itemView.findViewById(R.id.textViewBack);
-                textViewDeck = itemView.findViewById(R.id.textViewDeck);
-                textViewTag = itemView.findViewById(R.id.textViewTag);
+                btnDetail = itemView.findViewById(R.id.btnEdit);
                 btnDelete = itemView.findViewById(R.id.btnDelete);
             }
         }
@@ -122,14 +137,18 @@ public class CardFragment extends Fragment {
             if (data != null) {
 
                 Card card = data.get(position);
-                holder.textViewName.setText(card.getName());
                 holder.textViewFront.setText(card.getFront());
-                holder.textViewBack.setText(card.getBack());
-                holder.textViewDeck.setText(String.format("%s%s", getString(R.string.deck), card.getDeck()));
-                holder.textViewTag.setText(String.format("%s%s", getString(R.string.tag), card.getTag()));
                 holder.btnDelete.setOnClickListener(view -> {
                     int deletedPosition = holder.getAdapterPosition();
                     removeCard(deletedPosition);
+                });
+                holder.btnDetail.setOnClickListener(view -> {
+                    CardDetailDialog dialog = new CardDetailDialog(card);
+                    dialog.show(getChildFragmentManager(), "CardDetailDialog");
+                });
+                holder.cardLayout.setOnClickListener(view -> {
+                    CardPlayDialog dialog = new CardPlayDialog(card);
+                    dialog.show(getChildFragmentManager(), "CardPlayDialog");
                 });
             }
             else {
@@ -153,7 +172,6 @@ public class CardFragment extends Fragment {
         public void addCard(Card card) {
             addCardInBackground(cardDatabase, card);
             data.add(card);
-            //notifyItemInserted(cardList.size() - 1);
             adapter.updateCards(data);
 
         }
@@ -163,6 +181,21 @@ public class CardFragment extends Fragment {
             removeCardInBackground(cardDatabase, card);
             data.remove(position);
             notifyItemRemoved(position);
+        }
+        public void updateCard(Card card) {
+            int position = -1;
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getID() == card.getID()) {
+                    position = i;
+                    break;
+                }
+            }
+
+            if (position != -1) {
+                data.set(position, card);
+                notifyItemChanged(position);
+            }
+            updateCardInBackground(cardDatabase, card);
         }
 
         public void updateCards(List<Card> newCards) {
@@ -197,6 +230,20 @@ public class CardFragment extends Fragment {
 
             //on finishing task
             handler.post(() -> Toast.makeText(getContext(), "Deleted from Database", Toast.LENGTH_SHORT).show());
+        });
+    }
+
+    public void updateCardInBackground(CardDatabase db, Card card) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(() -> {
+            //background task
+            db.getCardDAO().updateCard(card);
+
+            //on finishing task
+            handler.post(() -> Toast.makeText(getContext(), "Updated in Database", Toast.LENGTH_SHORT).show());
         });
     }
 }

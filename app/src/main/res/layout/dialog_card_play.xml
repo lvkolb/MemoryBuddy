@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:nestedScrollingEnabled="true">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:minHeight="150dp"
+        android:textSize="24sp"
+        android:text="">
+
+    </com.google.android.material.textview.MaterialTextView>
+    <!-- EditText for entering the front of the card -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/give_rating">
+    </com.google.android.material.textview.MaterialTextView>
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:minHeight="48dp"
+        android:valueFrom="1"
+        android:valueTo="5"
+        android:stepSize="1">
+
+    </com.google.android.material.slider.Slider>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGiveAnswer"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/reveal_answer">
+
+    </com.google.android.material.button.MaterialButton>
+</LinearLayout>

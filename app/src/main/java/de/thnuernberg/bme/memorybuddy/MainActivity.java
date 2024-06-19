@@ -19,10 +19,19 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private SharedViewModel sharedViewModel;
+    private static final long DELAY_MS = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialize the Room database
+        CardDatabase cardDatabase = Room.databaseBuilder(getApplicationContext(),
+                CardDatabase.class, "CardDB").fallbackToDestructiveMigration().build();
+
+        // Initialize the SharedViewModel and set the database
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        sharedViewModel.setCardDatabase(cardDatabase);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -35,12 +44,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        // Initialize the Room database
-        CardDatabase cardDatabase = Room.databaseBuilder(getApplicationContext(),
-                CardDatabase.class, "CardDB").build();
 
-        // Initialize the SharedViewModel and set the database
-        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        sharedViewModel.setCardDatabase(cardDatabase);
+
+
     }
 }

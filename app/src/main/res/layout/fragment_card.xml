@@ -36,18 +36,17 @@
         android:layout_height="wrap_content"
         >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCards"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="@+id/Id_const_layout"
-        app:layout_constraintEnd_toEndOf="@+id/Id_const_layout"
-        app:layout_constraintHeight_max="1000dp"
-        app:layout_constraintHeight_min="500dp"
-        app:layout_constraintStart_toStartOf="@+id/Id_const_layout"
-        app:layout_constraintTop_toTopOf="@+id/Id_const_layout"
-        android:layout_marginTop="16dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCards"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/Id_const_layout"
+            app:layout_constraintHeight_min="800dp"
+            app:layout_constraintStart_toStartOf="@+id/Id_const_layout"
+            app:layout_constraintTop_toTopOf="@+id/Id_const_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
 

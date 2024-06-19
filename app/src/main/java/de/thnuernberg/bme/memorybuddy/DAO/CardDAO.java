@@ -21,12 +21,13 @@ public interface CardDAO {
     public void updateCard(Card card);
     @Delete
     public void deleteCard(Card card);
-    @Query("select * from card")
+    @Query("select * from cards")
     public LiveData<List<Card>> getAllCard();
-    @Query("select * from card where card_id==:card_id")
+    @Query("select * from cards where card_id==:card_id")
     public Card getCard(int card_id);
-
-    @Query("select * from card where card_name==:card_name")
-    public Card getCardName(String card_name);
+    @Query("select * from cards where card_recommendation=1")
+    public LiveData<List<Card>> getCardRecommended();
+    @Query("select * from cards where card_category==:card_category")
+    public Card getCardCategory(String card_category);
 
 }

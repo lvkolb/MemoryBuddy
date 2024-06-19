@@ -15,6 +15,7 @@ import de.thnuernberg.bme.memorybuddy.ui.card.Card;
 public class SharedViewModel extends ViewModel {
 
     private LiveData<List<Card>> cardsLiveData;
+    private LiveData<List<Card>> recommendedCards;
     private CardDatabase cardDatabase;
 
     public void setCardDatabase(CardDatabase cardDatabase) {
@@ -30,6 +31,10 @@ public class SharedViewModel extends ViewModel {
 
     private void loadAllCards() {
         cardsLiveData = cardDatabase.getCardDAO().getAllCard();
+    }
+    public LiveData<List<Card>> getRecommendedCards() {
+        recommendedCards = cardDatabase.getCardDAO().getCardRecommended();
+        return recommendedCards;
     }
 
     public CardDatabase getCardDatabase() {

@@ -9,8 +9,8 @@
     <string name="cards_title">Your cards</string>
     <string name="cards_update">You have %1$d cards</string>
     <string name="enter_front_of_card">Enter the front sides content</string>
-    <string name="enter_back_of_card">Enter the back sides content</string>
-    <string name="enter_name_of_card">Enter a name for this card</string>
+    <string name="enter_back_of_card">Enter the answer</string>
+    <string name="enter_name_of_card">Enter a category (Vocab, Question, etc.)</string>
     <string name="enter_deck_of_card">Choose a deck</string>
     <string name="enter_tag_of_card">Enter tags that describe the card</string>
     <string name="recent_title">Recent</string>
@@ -38,4 +38,17 @@
     <string name="statistic_title3">Statistic 3</string>
     <string name="deck">"Deck: "</string>
     <string name="tag">Tag: #</string>
+    <string name="front_side">Front-Side:</string>
+    <string name="back_side">Back Side</string>
+    <string name="category">Category:</string>
+    <string name="deck_card">Deck:</string>
+    <string name="make_editable">Make Editable</string>
+    <string name="rate_the_card">Rate the card</string>
+    <string name="rating">Rating:</string>
+    <string name="recommended_to_review_in_days">Recommended to review in days:</string>
+    <string name="reveal_answer">Reveal Answer</string>
+    <string name="give_rating">Give rating</string>
+    <string name="text_title_recommended">Recommended</string>
+    <string name="search">Search</string>
+    <string name="times_reviewed">Times reviewed</string>
 </resources>
