@@ -2,12 +2,17 @@ package de.thnuernberg.bme.memorybuddy.ui.card;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import de.thnuernberg.bme.memorybuddy.ui.deck.Deck;
 
-@Entity(tableName = "Cards")
+@Entity(tableName = "Cards",
+        foreignKeys = @ForeignKey(entity = Deck.class,
+                parentColumns = "deck_id",
+                childColumns = "deck_id",
+                onDelete = ForeignKey.CASCADE))
 public class Card {
     @ColumnInfo(name="card_id")
     @PrimaryKey(autoGenerate = true)
@@ -18,9 +23,8 @@ public class Card {
     private String back;
     @ColumnInfo(name="card_category")
     private String category;
-    @ColumnInfo(name="card_deck")
-    private String deck;
-
+    @ColumnInfo(name="deck_id")
+    private int deckId;
 
     @ColumnInfo(name="card_reviewCount")
     private int reviewCount;
@@ -29,15 +33,16 @@ public class Card {
     @ColumnInfo(name="card_recommendation")
     private int recommendation;
 
+    @Ignore
+    private Deck deck; // Use this field to store Deck object (not stored in database)
 
-    public Card(String category, String front, String back,String deck, int rating, int recommendation, int reviewCount) {
+    public Card(String category, String front, String back,int deckId, int rating, int recommendation, int reviewCount) {
         this.front = front;
         this.back = back;
         this.category = category;
-        this.deck = deck;
+        this.deckId = deckId;
         this.reviewCount = reviewCount;
         this.rating = rating;
-        this.id = 0;
         this.recommendation = recommendation;
     }
 
@@ -51,10 +56,10 @@ public class Card {
     public void setBack(String back){this.back = back;}
     public String getCategory() {return category;}
     public void setCategory(String category){this.category = category;}
-    public String getDeck() {
-        return deck;
+    public int getDeckId() {
+        return deckId;
     }
-    public void setDeck(String deck){this.deck = deck;}
+    public void setDeckId(int deckId){this.deckId = deckId;}
     public int getReviewCount() {
         return reviewCount;
     }
@@ -78,5 +83,13 @@ public class Card {
         return id;
     }
     public void setID(int id) {this.id = id;}
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+        this.deckId = deck.getDeckId(); // Update deckId when setting Deck object
+    }
 
 }

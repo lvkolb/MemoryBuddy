@@ -32,11 +32,14 @@ import de.thnuernberg.bme.memorybuddy.ui.card.CardFragment.CardAdapter.CardViewH
 import de.thnuernberg.bme.memorybuddy.R;
 import de.thnuernberg.bme.memorybuddy.database.CardDatabase;
 import de.thnuernberg.bme.memorybuddy.ui.SharedViewModel;
+import de.thnuernberg.bme.memorybuddy.ui.deck.Deck;
 
 public class CardFragment extends Fragment implements FragmentContainer {
 
     private CardAdapter adapter;
     private List<Card> cards;
+
+    private List<Deck> decks;
     private CardDatabase cardDatabase;
     private RecyclerView recyclerView;
     private SharedViewModel sharedViewModel;
@@ -75,27 +78,27 @@ public class CardFragment extends Fragment implements FragmentContainer {
     }
 
     private void showCardEditDialog() {
-        CardEditDialog dialog = new CardEditDialog(cards);
+        CardEditDialog dialog = new CardEditDialog(cards,decks);
         dialog.show(getChildFragmentManager(), "CardEditDialog");
     }
 
-    public void onCardSaved(String category, String frontText, String backText, String deck) {
-        Card newCard = new Card(category, frontText, backText, deck, 1,1,0);
+    public void onCardSaved(String category, String frontText, String backText, int deckId) {
+        Card newCard = new Card(category, frontText, backText, deckId, 1,1,0);
         adapter.addCard(newCard);
     }
     @Override
-    public void onCardUpdated(int id,String category, String frontText, String backText, String deck, int rating, int recommendation , int reviewCount) {
+    public void onCardUpdated(int id,String category, String frontText, String backText, int deckId, int rating, int recommendation , int reviewCount) {
         int newReviewCount =reviewCount+1;
         int newRecommendation =recommendation+1;
-        Card updatedCard = new Card(category, frontText, backText, deck, rating,newRecommendation,newReviewCount);
+        Card updatedCard = new Card(category, frontText, backText, deckId, rating,newRecommendation,newReviewCount);
         updatedCard.setID(id);
         adapter.updateCard(updatedCard);
     }
     @Override
-    public void onCardPlayed(int id,String category, String frontText, String backText, String deck, int rating, int recommendation , int reviewCount) {
+    public void onCardPlayed(int id,String category, String frontText, String backText, int deckId, int rating, int recommendation , int reviewCount) {
         int newReviewCount =reviewCount+1;
         int newRecommendation =recommendation+1;
-        Card updatedCard = new Card(category, frontText, backText, deck, rating,newRecommendation,newReviewCount);
+        Card updatedCard = new Card(category, frontText, backText, deckId, rating,newRecommendation,newReviewCount);
         updatedCard.setID(id);
         adapter.updateCard(updatedCard);
     }
